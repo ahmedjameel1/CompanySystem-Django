@@ -24,7 +24,7 @@
         <th>{{bug.status}}</th>
        
         {%else%}
-        <form method="POST" action="{%url 'reportstatus' report.id%}">
+        <form method="POST" action="{%url 'bugstatus' bug.id%}">
           {% csrf_token %}
         <td><select  name='status' class="btn btn-secondary">
           <option selected disabled>{{bug.status}}</option>
