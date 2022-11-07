@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<h4 class="text-center" style='color:darkblue'>Department Manager: {{department.manager.name|capfirst}}</h4>
+<br>
+<h4 class="text-center" style='color:darkblue'>Colleagues</h4>
+<br>
+<table class="table">
+    <thead>
+      <tr class='table-primary'>
+        <th scope="col">Colleague ID</th>
+        <th>Colleague</th>
+
+      </tr>
+    </thead>
+    <tbody>
+       {%for colleague in colleagues%}
+      <tr>
+        <th scope="row">{{colleague.id}}</th>
+        <th scope="row"><a href="{%url 'employee' colleague.id%}"> {{colleague.username}}</a></th>
+
+      </tr>
+        {% endfor %}
+     
+    </tbody>
+  </table>
+<hr>
+<h4 class="text-center" style='color:darkblue'>Tasks</h4>
+<br>
+  <table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">Task ID</th>
+        <th scope="col">Task</th>
+        <th scope="col">In Charge</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for task in tasks%}
+      <tr>
+        <th scope="row">{{task.id}}</th>
+        <td><a href="{%url 'singletask' task.id%}">{{task.name}}</a></td>
+        <td><a href="{%url 'employee' task.in_charge.id%}">{{task.in_charge.username}}</a></td>
+        <td>{{task.status}}</td>
+      </tr>
+        {% endfor %}
+     
+    </tbody>
+  </table>
+  <hr>
+
+
+
+{% endblock %}

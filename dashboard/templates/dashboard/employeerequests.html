@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Department</th>
+        <th scope="col">Manger</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for department in departments%}
+      <tr>
+        <th scope="row">{{department.id}}</th>
+        <td>{{department.name}}</td>
+        <td>{{department.manager.name}}</td>
+      </tr>
+        {%endfor%}
+     
+    </tbody>
+  </table>
+
+
+
+{% endblock %}

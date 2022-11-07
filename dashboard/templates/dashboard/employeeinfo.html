@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Role</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Department</th>
+        <th scope="col">Manger</th>
+        <th scope="col">Tasks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{employee.id}}</th>
+        <td>{{employee.username}}</td>
+        <td>{{employee.role}}</td>
+        <td>{{employee.salary}}</td>
+        <td>{{department.name}}</td>
+        <td>{{department.manager.username}}</td>
+        <td>{{task.name}}({{task.status}})</td>
+      </tr>     
+    </tbody>
+  </table>
+
+
+
+{% endblock %}

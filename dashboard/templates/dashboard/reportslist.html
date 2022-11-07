@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Report Description</th>
+        <th scope="col">issued by</th>
+        <th scope="col">status</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+     
+        {%for report in reports%}
+      <tr>
+        <th scope="row">{{report.id}}</th>
+        <td>{{report.description}}</td>
+        <td>{{report.issued_by.username|capfirst}}</td>
+        {%if request.user.is_superuser == False%}
+        <th>{{report.status}}</th>
+       
+        {%else%}
+        <form method="POST" action="{%url 'reportstatus' report.id%}">
+          {% csrf_token %}
+        <td><select  name='status' class="btn btn-secondary">
+          <option selected disabled>{{report.status}}</option>
+          <option>Open</option>
+          <option>Closed</option>
+        </select></td>
+        <td><button type="submit" class='btn btn-success'>Save</button></td>
+        </form>
+      </tr>     
+      {%endif%}
+        {%endfor%}
+    </tbody>
+  </table>
+  <hr>
+  {%endblock%}

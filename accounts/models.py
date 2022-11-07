@@ -81,6 +81,7 @@ class Account(AbstractBaseUser):
 
 
 class Profile(models.Model):
+    depart = models.ForeignKey('dashboard.Department', on_delete=models.CASCADE, blank=True,null=True)
     account = models.OneToOneField(Account , on_delete=models.CASCADE, blank=True , null=True)
     name = models.CharField(max_length=50,null=True,blank=True)
     salary  = models.DecimalField(decimal_places=2,max_digits=10,default = 0)

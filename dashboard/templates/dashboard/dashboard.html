@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Department</th>
+        <th scope="col">Manger</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%if request.user.is_superadmin%}
+        {%for department in departments%}
+      <tr>
+        <th scope="row">{{department.id}}</th>
+        <td><a href="{%url 'department' department.id%}">{{department.name}}</a></td>
+        <td>{{department.manager.name|capfirst}}</td>
+      </tr>
+        {%endfor%}
+        {%else%}
+        <tr>
+          <th scope="row">{{request.user.profile.depart}}</th>
+          <td><a href="{%url 'department' request.user.profile.depart.id%}">{{request.user.profile.depart.name}}</a></td>
+          <td>{{request.user.profile.depart.manager.name|capfirst}}</td>
+        </tr>
+     {%endif%}
+    </tbody>
+  </table>
+  <hr>
+
+
+
+{% endblock %}

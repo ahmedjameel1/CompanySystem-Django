@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<table class="table">
+    <thead>
+      <tr class="table-info">
+        <th scope="col">Task ID</th>
+        <th scope="col">Task Name</th>
+        <th scope="col">Task Description</th>
+        <th scope="col">Task Status</th>
+        <th scope="col">In charge</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{task.id}}</th>
+        <th>{{task.name}}</th>
+        <td>{{task.description}}</td>
+        {%if request.user.is_superuser == False%}
+        <th>{{task.status}}</th>
+        <td>{{task.in_charge}}</td>
+        {%else%}
+        <form method="POST" action="{%url 'taskstatus' task.id%}">
+          {% csrf_token %}
+        <td><select  name='status' class="btn btn-secondary">
+          <option selected disabled>{{task.status}}</option>
+          <option>Queued</option>
+          <option>Delayed</option>
+          <option>In Progress</option>
+          <option>Done</option>
+        </select></td>
+       <td><select name='in_charge' class="btn btn-secondary">
+        <option selected disabled>{{task.in_charge.username}}</option>
+          {%for user in users%}
+        <option>{{user.username}}</option> 
+        {%endfor%}
+      </select></td>
+        <td><button type="submit" class='btn btn-success'>Save</button></td>
+        </form>
+      </tr>     
+      {%endif%}
+    </tbody>
+  </table>
+
+
+
+{% endblock %}
