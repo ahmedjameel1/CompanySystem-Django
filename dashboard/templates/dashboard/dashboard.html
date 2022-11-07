@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{%if not employees and reports and bugs and requests and tasks and departments%}
 
+<h4 class="text-center">No Results</h4>
 
+{%endif%}
+{%if departments%}
 <table class="table">
     <thead>
       <tr class="table-primary">
@@ -30,7 +34,127 @@
     </tbody>
   </table>
   <hr>
+  {%endif%}
+
+  {%if employees%}
+  <table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Salary</th>
+        <th scope="col">On Vacation</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for employee in employees%}
+      <tr>
+        <th scope="row">{{employee.id}}</th>
+        <td><a href="{%url 'employee' employee.id%}">{{employee.name}}</a></td>
+        <td>{{employee.salary}}</td>
+        <td>{{employee.on_vacation}}</td>
+      </tr>
+        {%endfor%}
+    </tbody>
+  </table>
+  <hr>
+  {%endif%}
+
+  {%if reports%}
+  <table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for report in reports%}
+      <tr>
+        <th scope="row">{{report.id}}</th>
+        <td><a href="{%url 'reports' %}">{{report.issued_by.username}}</a></td>
+        <td>{{report.description}}</td>
+        <td>{{report.status}}</td>
+      </tr>
+        {%endfor%}
+    </tbody>
+  </table>
+  <hr>
+  {%endif%}
+
+  {%if bugs%}
+  <table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for bug in bugs%}
+      <tr>
+        <th scope="row">{{bug.id}}</th>
+        <td><a href="{%url 'bugs' %}">{{bug.issued_by.username}}</a></td>
+        <td>{{bug.description}}</td>
+        <td>{{bug.status}}</td>
+      </tr>
+        {%endfor%}
+    </tbody>
+  </table>
+  <hr>
+  {%endif%}
 
 
+  {%if requests%}
+  <table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for request in requests%}
+      <tr>
+        <th scope="row">{{request.id}}</th>
+        <td><a href="{%url 'requests' %}">{{request.requested_by.username}}</a></td>
+        <td>{{request.report}}</td>
+        <td>{{request.status}}</td>
+      </tr>
+        {%endfor%}
+    </tbody>
+  </table>
+  <hr>
+  {%endif%}
+
+  {%if tasks%}
+  <table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">in CHarge</th>
+        <th scope="col">Description</th>
+        <th scope="col">status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for task in tasks%}
+      <tr>
+        <th scope="row">{{task.id}}</th>
+        <td>{{task.in_charge.username}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.status}}</td>
+      </tr>
+        {%endfor%}
+    </tbody>
+  </table>
+  <hr>
+  {%endif%}
 
 {% endblock %}

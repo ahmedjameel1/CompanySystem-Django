@@ -3,11 +3,13 @@ from .models import Department , Task, Report, EmployeeRequests, BugTracker
 from accounts.models import Profile
 from django.contrib import messages
 from .forms import ReportForm, BugTrackerForm, EmployeeRequestsForm
-
+from .utils import searchAll
 # Create your views here.
 
 def dashboard(request):
-    return render(request, 'dashboard/dashboard.html',{'departments':Department.objects.all()})
+    employees,reports,bugs,requests,tasks,departments,search_query = searchAll(request)
+    ctx = {'departments':departments,'employees': employees, 'reports': reports,'bugs': bugs,'requests': requests,'tasks': tasks}
+    return render(request, 'dashboard/dashboard.html',ctx)
 
 
 def department(request,depart_id):

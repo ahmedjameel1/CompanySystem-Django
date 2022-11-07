@@ -24,7 +24,6 @@ STATUS = (
 )
 
 class Task(models.Model):
-    report = models.ManyToManyField('Report', blank=True)
     in_charge = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, null=True,blank=True)
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500,blank=True,null=True)
